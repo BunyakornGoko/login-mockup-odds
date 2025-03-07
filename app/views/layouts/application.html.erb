@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="bg-gray-200 text-gray-800">
   <head>
     <title><%= content_for(:title) || "Store" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -24,10 +24,16 @@
 
   <body>
     <div class="notice"><%= notice %></div>
-    <nav>
-      <%= link_to "Home", root_path %>
-      <%= button_to "Log out", session_path, method: :delete if authenticated? %>
-    </nav>
+
+    <div class="navbar bg-base-100 shadow-sm text-gray-100 flex items-center p-4">
+      <nav class="flex items-center justify-between w-full">
+        <div><%= link_to "Odds", root_path, class: "font-bold text-3xl" %></div>
+        <div>
+          <%= link_to "Login", new_session_path unless authenticated? %>
+          <%= button_to "Log out", session_path, method: :delete if authenticated? %>
+        </div>
+      </nav>
+    </div>
 
     <% if authenticated? %>
       <div>
@@ -35,8 +41,6 @@
         <p>Role: <%= Current.session.user.role %></p>
       </div>
     <% end %>
-
-    <%= link_to "Login", new_session_path unless authenticated? %>
 
     <main>
       <%= yield %>
